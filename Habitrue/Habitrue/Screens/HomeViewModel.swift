@@ -4,6 +4,11 @@ import Foundation
 final class HomeViewModel: ObservableObject {
     @Published var streakDays: Int = 10
     @Published var isPresentingNewHabit = false
+    @Published var isProfileMenuPresented = false
+    @Published var showSettings = false
+
+    let userName = "Aditya"
+    let userTagline = "Keep your streak alive"
 
     @Published var weekDays: [WeekDayStatus] = {
         let labels = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
@@ -35,5 +40,9 @@ final class HomeViewModel: ObservableObject {
         } else {
             streakDays -= 1
         }
+    }
+
+    func addHabit(_ habit: Habit) {
+        todayHabits.append(habit)
     }
 }

@@ -1,8 +1,11 @@
 import SwiftUI
 
+// Ex. Approach: HStack for horizontal layout (text block vs avatar),
+// nested VStack for the stacked title/date text block.
 struct HomeHeaderView: View {
     let title: String
     let dateText: String
+    var onAvatarTap: () -> Void = {}
 
     var body: some View {
         HStack(alignment: .top) {
@@ -14,7 +17,10 @@ struct HomeHeaderView: View {
                     .foregroundStyle(AppTheme.textSecondary)
             }
             Spacer()
-            AvatarView(emoji: "🧑🏽")
+            Button(action: onAvatarTap) {
+                AvatarView(emoji: "🧑🏽")
+            }
+            .buttonStyle(.plain)
         }
     }
 }

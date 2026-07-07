@@ -1,5 +1,7 @@
 import SwiftUI
 
+// Ex. Approach: outer VStack for vertical flow; the title row uses an HStack
+// to place text left and a circular icon right; button spans full width.
 struct TodayHabitCard: View {
     let habit: Habit
     var onMarkDone: () -> Void
@@ -16,7 +18,7 @@ struct TodayHabitCard: View {
                 }
                 Spacer()
                 Circle()
-                    .fill(Color.blue.opacity(0.15))
+                    .fill(habit.color.opacity(0.15))
                     .frame(width: 48, height: 48)
                     .overlay(Text(habit.emoji).font(.system(size: 22)))
             }

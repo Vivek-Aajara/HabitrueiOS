@@ -18,6 +18,7 @@ enum AppTheme {
     static let cardLight = Color.white
     static let accent = Color(hex: "6C5CE7")
     static let textSecondary = Color(hex: "8E8E93")
+    static let fieldBackground = Color(hex: "E8E9F0")
 
     static let cornerRadius: CGFloat = 24
     static let spacing: CGFloat = 16
