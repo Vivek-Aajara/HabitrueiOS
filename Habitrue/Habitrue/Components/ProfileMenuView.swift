@@ -12,13 +12,14 @@ struct ProfileMenuView: View {
     var onLogoutTap: () -> Void
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
+        AppGlassEffectContainer(spacing: 20) {
+            VStack(alignment: .leading, spacing: 20) {
             HStack {
                 Spacer()
                 Button(action: onClose) {
                     Image(systemName: "xmark")
                         .font(.system(size: 18, weight: .semibold))
-                        .foregroundStyle(.black)
+                        .foregroundStyle(AppTheme.textPrimary)
                 }
                 .buttonStyle(.plain)
             }
@@ -29,6 +30,7 @@ struct ProfileMenuView: View {
                                    startPoint: .top, endPoint: .bottom)
                 )
                 .frame(width: 84, height: 84)
+                .appGlassCircle(tint: .orange, isInteractive: false)
                 .overlay(Text("🧑🏽").font(.system(size: 40)))
 
             VStack(alignment: .leading, spacing: 4) {
@@ -50,11 +52,12 @@ struct ProfileMenuView: View {
             }
 
             Spacer()
+            }
+            .padding(20)
+            .padding(.top, 8)
+            .frame(maxHeight: .infinity, alignment: .top)
+            .appGlassCard(cornerRadius: 0)
         }
-        .padding(20)
-        .padding(.top, 8)
-        .frame(maxHeight: .infinity, alignment: .top)
-        .background(AppTheme.cardLight)
     }
 }
 

@@ -17,9 +17,10 @@ struct ColorPickerRow: View {
                     .frame(width: 32, height: 32)
                     .overlay(
                         Circle()
-                            .stroke(.black.opacity(selection == color ? 0.6 : 0), lineWidth: 2)
+                            .stroke(AppTheme.textPrimary.opacity(selection == color ? 0.6 : 0), lineWidth: 2)
                             .padding(-4)
                     )
+                    .appGlassCircle(tint: color)
                     .onTapGesture { selection = color }
             }
         }

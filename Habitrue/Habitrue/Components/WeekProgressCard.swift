@@ -26,7 +26,7 @@ struct WeekProgressCard: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(AppTheme.padding)
-        .background(AppTheme.cardLight, in: RoundedRectangle(cornerRadius: AppTheme.cornerRadius))
+        .appGlassCard()
     }
 }
 
@@ -35,13 +35,10 @@ private struct DayPill: View {
     var body: some View {
         Text(day.label)
             .font(.system(size: 12, weight: .bold))
-            .foregroundStyle(day.isCompleted ? .white : AppTheme.textSecondary.opacity(0.7))
+            .foregroundStyle(day.isCompleted ? AppTheme.textOnAccent : AppTheme.textSecondary.opacity(0.8))
             .frame(maxWidth: .infinity)
             .padding(.vertical, 14)
-            .background(
-                RoundedRectangle(cornerRadius: 14)
-                    .fill(day.isCompleted ? AppTheme.accent : Color.black.opacity(0.05))
-            )
+            .appGlassControl(cornerRadius: 14, tint: day.isCompleted ? AppTheme.accent : AppTheme.divider, isInteractive: false)
     }
 }
 

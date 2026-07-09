@@ -4,7 +4,7 @@ import SwiftUI
 // nothing right (no chevron here, matches the flat menu style in the design).
 struct MenuRow: View {
     let title: String
-    var tint: Color = .black
+    var tint: Color = AppTheme.textPrimary
     var isBold: Bool = false
     var action: () -> Void
 

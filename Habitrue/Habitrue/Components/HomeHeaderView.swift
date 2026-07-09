@@ -34,6 +34,7 @@ private struct AvatarView: View {
                                startPoint: .top, endPoint: .bottom)
             )
             .frame(width: 48, height: 48)
+            .appGlassCircle(tint: .orange)
             .overlay(Text(emoji).font(.system(size: 22)))
     }
 }

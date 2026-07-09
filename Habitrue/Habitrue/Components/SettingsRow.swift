@@ -11,7 +11,7 @@ struct SettingsRow: View {
             HStack {
                 Text(title)
                     .font(.system(size: 16))
-                    .foregroundStyle(.black)
+                    .foregroundStyle(AppTheme.textPrimary)
                 Spacer()
                 Image(systemName: "chevron.right")
                     .font(.system(size: 13, weight: .semibold))

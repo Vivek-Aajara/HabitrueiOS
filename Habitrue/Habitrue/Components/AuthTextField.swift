@@ -45,7 +45,7 @@ struct AuthTextField: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 16)
-        .background(AppTheme.fieldBackground, in: RoundedRectangle(cornerRadius: 14))
+        .appGlassControl(cornerRadius: 14, tint: AppTheme.fieldBackground, isInteractive: false)
     }
 }
 

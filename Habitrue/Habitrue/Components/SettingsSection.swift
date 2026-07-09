@@ -17,7 +17,7 @@ struct SettingsSection<Content: View>: View {
             VStack(spacing: 0) {
                 content
             }
-            .background(AppTheme.cardLight, in: RoundedRectangle(cornerRadius: 18))
+            .appGlassCard(cornerRadius: 18)
         }
     }
 }

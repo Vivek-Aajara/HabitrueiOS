@@ -13,6 +13,7 @@ enum AppRoute {
 struct RootView: View {
     @State private var route: AppRoute = .splash
     @StateObject private var authViewModel = AuthViewModel()
+    @AppStorage("isDarkModeEnabled") private var isDarkModeEnabled = false
 
     var body: some View {
         ZStack {
@@ -39,6 +40,9 @@ struct RootView: View {
                     .transition(.opacity)
             }
         }
+        .preferredColorScheme(isDarkModeEnabled ? .dark : .light)
+        .tint(AppTheme.accent)
+        .animation(.easeInOut(duration: 0.25), value: isDarkModeEnabled)
     }
 }
 

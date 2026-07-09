@@ -10,7 +10,7 @@ struct SettingsToggleRow: View {
         HStack {
             Text(title)
                 .font(.system(size: 16))
-                .foregroundStyle(.black)
+                .foregroundStyle(AppTheme.textPrimary)
             Spacer()
             Toggle("", isOn: $isOn)
                 .labelsHidden()

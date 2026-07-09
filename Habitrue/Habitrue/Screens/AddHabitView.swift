@@ -1,8 +1,5 @@
 import SwiftUI
 
-// Ex. Approach: NavigationStack for the sheet's own title + toolbar buttons,
-// ScrollView > VStack backbone for the form body — every section pairs a
-// FormSectionLabel with one picker component, no inline styling here.
 struct AddHabitView: View {
     @StateObject private var viewModel = AddHabitViewModel()
     @Environment(\.dismiss) private var dismiss
@@ -11,40 +8,47 @@ struct AddHabitView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 24) {
-                    VStack(alignment: .leading, spacing: 8) {
-                        FormSectionLabel(title: "Habit name")
-                        AuthTextField(icon: "pencil", placeholder: "e.g. Morning run",
-                                      text: $viewModel.name)
-                    }
+                AppGlassEffectContainer(spacing: 18) {
+                    VStack(alignment: .leading, spacing: 18) {
+                        formCard {
+                            FormSectionLabel(title: "Habit name")
+                            AuthTextField(icon: "pencil", placeholder: "e.g. Morning run", text: $viewModel.name)
+                        }
 
-                    VStack(alignment: .leading, spacing: 8) {
-                        FormSectionLabel(title: "Frequency")
-                        FrequencyPicker(selection: $viewModel.frequency)
-                    }
+                        formCard {
+                            FormSectionLabel(title: "Note")
+                            HabitNoteEditor(text: $viewModel.note)
+                        }
 
-                    VStack(alignment: .leading, spacing: 8) {
-                        FormSectionLabel(title: "Icon")
-                        IconPickerGrid(selection: $viewModel.icon)
-                    }
+                        formCard {
+                            FormSectionLabel(title: "Frequency")
+                            FrequencyPicker(selection: $viewModel.frequency)
+                        }
 
-                    VStack(alignment: .leading, spacing: 8) {
-                        FormSectionLabel(title: "Color")
-                        ColorPickerRow(selection: $viewModel.color)
-                    }
+                        formCard {
+                            FormSectionLabel(title: "Icon")
+                            IconPickerGrid(selection: $viewModel.icon)
+                        }
 
-                    SettingsToggleRow(title: "Add location anchor",
-                                      isOn: $viewModel.hasLocationAnchor)
-                        .background(AppTheme.cardLight, in: RoundedRectangle(cornerRadius: 14))
+                        formCard {
+                            FormSectionLabel(title: "Color")
+                            ColorPickerRow(selection: $viewModel.color)
+                                .padding(.vertical, 4)
+                        }
+
+                        SettingsToggleRow(title: "Add location anchor", isOn: $viewModel.hasLocationAnchor)
+                            .appGlassCard(cornerRadius: 16)
+                    }
+                    .padding(AppTheme.padding)
                 }
-                .padding(AppTheme.padding)
             }
-            .background(AppTheme.background.ignoresSafeArea())
+            .background(AppTheme.appBackground)
             .navigationTitle("New Habit")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
+                        .foregroundStyle(AppTheme.textSecondary)
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
@@ -52,10 +56,44 @@ struct AddHabitView: View {
                         dismiss()
                     }
                     .disabled(!viewModel.isValid)
+                    .foregroundStyle(viewModel.isValid ? AppTheme.accent : AppTheme.textSecondary)
                     .fontWeight(.semibold)
                 }
             }
         }
+    }
+
+    private func formCard<Content: View>(@ViewBuilder content: () -> Content) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            content()
+        }
+        .padding(14)
+        .appGlassCard(cornerRadius: 18)
+    }
+}
+
+private struct HabitNoteEditor: View {
+    @Binding var text: String
+
+    var body: some View {
+        ZStack(alignment: .topLeading) {
+            if text.isEmpty {
+                Text("Why does this habit matter today?")
+                    .font(.system(size: 16))
+                    .foregroundStyle(AppTheme.textSecondary)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 14)
+            }
+
+            TextEditor(text: $text)
+                .font(.system(size: 16))
+                .foregroundStyle(AppTheme.textPrimary)
+                .scrollContentBackground(.hidden)
+                .frame(minHeight: 104)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+        }
+        .appGlassControl(cornerRadius: 14, tint: AppTheme.fieldBackground, isInteractive: false)
     }
 }
 

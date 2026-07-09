@@ -12,8 +12,10 @@ final class HomeViewModel: ObservableObject {
 
     @Published var weekDays: [WeekDayStatus] = {
         let labels = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
+        let todayIndex = Calendar.current.component(.weekday, from: Date()) - 1
+
         return labels.enumerated().map { index, label in
-            WeekDayStatus(label: label, isCompleted: index < 2) // Sun & Mon done
+            WeekDayStatus(label: label, isCompleted: index < todayIndex)
         }
     }()
 
@@ -32,17 +34,27 @@ final class HomeViewModel: ObservableObject {
         return formatter.string(from: Date())
     }
 
+    var completedHabitCount: Int {
+        todayHabits.filter(\.isDone).count
+    }
+
     func toggleDone(_ habit: Habit) {
         guard let index = todayHabits.firstIndex(where: { $0.id == habit.id }) else { return }
+
         todayHabits[index].isDone.toggle()
-        if todayHabits[index].isDone {
-            streakDays += 1
-        } else {
-            streakDays -= 1
-        }
+        streakDays = max(0, streakDays + (todayHabits[index].isDone ? 1 : -1))
+        updateTodayProgress()
     }
 
     func addHabit(_ habit: Habit) {
         todayHabits.append(habit)
+        updateTodayProgress()
+    }
+
+    private func updateTodayProgress() {
+        let todayIndex = Calendar.current.component(.weekday, from: Date()) - 1
+        guard weekDays.indices.contains(todayIndex) else { return }
+
+        weekDays[todayIndex].isCompleted = todayHabits.contains { $0.isDone }
     }
 }

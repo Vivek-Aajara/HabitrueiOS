@@ -16,13 +16,10 @@ struct FrequencyPicker: View {
                 } label: {
                     Text(option.label)
                         .font(.system(size: 14, weight: .semibold))
-                        .foregroundStyle(isSelected ? .white : AppTheme.textSecondary)
+                        .foregroundStyle(isSelected ? AppTheme.textOnAccent : AppTheme.textSecondary)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 12)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(isSelected ? AppTheme.accent : AppTheme.fieldBackground)
-                        )
+                        .appGlassControl(cornerRadius: 12, tint: isSelected ? AppTheme.accent : AppTheme.fieldBackground)
                 }
                 .buttonStyle(.plain)
             }

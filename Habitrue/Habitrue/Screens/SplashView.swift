@@ -8,14 +8,14 @@ struct SplashView: View {
 
     var body: some View {
         ZStack {
-            AppTheme.background.ignoresSafeArea()
+            AppTheme.appBackground
 
             Image("HabitrueLogo")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 140, height: 140)
                 .clipShape(RoundedRectangle(cornerRadius: 36, style: .continuous))
-                .shadow(color: .black.opacity(0.15), radius: 20, y: 10)
+                .shadow(color: AppTheme.accent.opacity(0.24), radius: 24, y: 12)
                 .scaleEffect(scale)
                 .opacity(opacity)
         }

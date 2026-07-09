@@ -13,10 +13,10 @@ struct SocialLoginButton: View {
                 Text(label)
                     .font(.system(size: 15, weight: .semibold))
             }
-            .foregroundStyle(.black)
+            .foregroundStyle(AppTheme.textPrimary)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 14)
-            .background(AppTheme.fieldBackground, in: RoundedRectangle(cornerRadius: 14))
+            .appGlassControl(cornerRadius: 14, tint: AppTheme.fieldBackground)
         }
         .buttonStyle(.plain)
     }

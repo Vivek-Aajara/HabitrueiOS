@@ -31,7 +31,7 @@ struct StreakCard: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(AppTheme.padding)
-        .background(AppTheme.cardDark, in: RoundedRectangle(cornerRadius: AppTheme.cornerRadius))
+        .appGlassCard(tint: AppTheme.cardDark)
     }
 }
 
